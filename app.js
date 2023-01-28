@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
     res.send('Welcome to the Toy Tracker API!')
 })
 
+//Cria um novo toy
 app.post('/toys', async (req, res) => {
     try {
         const newToy = await Toy.create(req.body)
@@ -28,6 +29,7 @@ app.post('/toys', async (req, res) => {
     }
 })
 
+//Lista todos os toys
 app.get('/toys', async (req, res) => {
     try {
         const toys = await Toy.find({})
@@ -38,6 +40,7 @@ app.get('/toys', async (req, res) => {
     }
 })
 
+//Obtém detalhes de um toy pelo id
 app.get('/toys/:id', async (req, res) => {
     try {
         const { id } = req.params
@@ -48,6 +51,32 @@ app.get('/toys/:id', async (req, res) => {
         }
 
         return res.status(200).json(toy)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({message: 'Internal Server Error'})
+    }
+})
+
+//Atualiza um toy
+app.put('/toys/:id', async (req, res) => {
+    try {
+        const payload = req.body
+        const { id } = req.params
+
+        const updatedToy = await Toy.findOneAndUpdate({_id: id}, payload, { new: true })
+        return res.status(200).json(updatedToy)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({message: 'Internal Server Error'})
+    }
+})
+
+//Deleta um toy
+app.delete('/toys/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+        await Toy.findOneAndDelete({_id: id})
+        res.status(204).json()
     } catch (error) {
         console.log(error)
         return res.status(500).json({message: 'Internal Server Error'})
