@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import connectDB from './config/db.connection.js'
 import Toy from './models/Toy.model.js'
 
@@ -13,6 +14,7 @@ const app = express()
 
 //Habilita o middleware que nos permite trabalhar com requests JSON
 app.use(express.json())
+app.use(cors())
 
 app.get('/', (req, res) => {
     res.send('Welcome to the Toy Tracker API!')

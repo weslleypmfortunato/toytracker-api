@@ -14,6 +14,10 @@ const toySchema = new Schema({
         type: String,
         required: true
     },
+    imageUrl: {
+        type: String,
+        default: 'https://via.placeholder.com/150'
+    },
     collectedDate: {
         type: Date,
         required: true
