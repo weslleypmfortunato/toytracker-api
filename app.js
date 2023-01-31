@@ -1,10 +1,8 @@
+import doternv from 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import connectDB from './config/db.connection.js'
 import Toy from './models/Toy.model.js'
-
-//Define a porta na qual a API/Server escutará
-const PORT = 3001
 
 //Conecta-se ao banco de dados
 connectDB()
@@ -85,5 +83,5 @@ app.delete('/toys/:id', async (req, res) => {
     }
 })
 
-//Inicializa o meu servidor/api
-app.listen(PORT, () => console.log('Server listening on port ', PORT))
+//Inicializa o meu servidor/api | a porta é definida na variavel de ambiente no arquivo .env
+app.listen(process.env.PORT, () => console.log('Server listening on port ', process.env.PORT))
